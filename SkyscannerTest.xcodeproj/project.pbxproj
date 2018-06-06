@@ -7,16 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		249C5D71885E0B89B371A025 /* Pods_SkyscannerTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2936B381DCD59561CB1BBF6C /* Pods_SkyscannerTest.framework */; };
 		9F38E0CD20C7F1DB00DBB174 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F38E0CC20C7F1DB00DBB174 /* AppDelegate.swift */; };
 		9F38E0CF20C7F1DB00DBB174 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F38E0CE20C7F1DB00DBB174 /* FirstViewController.swift */; };
-		9F38E0D120C7F1DB00DBB174 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F38E0D020C7F1DB00DBB174 /* SecondViewController.swift */; };
 		9F38E0D420C7F1DB00DBB174 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F38E0D220C7F1DB00DBB174 /* Main.storyboard */; };
 		9F38E0D620C7F1DD00DBB174 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F38E0D520C7F1DD00DBB174 /* Assets.xcassets */; };
 		9F38E0D920C7F1DD00DBB174 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F38E0D720C7F1DD00DBB174 /* LaunchScreen.storyboard */; };
-		9F38E0E420C7F1DD00DBB174 /* SkyscannerTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F38E0E320C7F1DD00DBB174 /* SkyscannerTestTests.swift */; };
+		9F38E0E420C7F1DD00DBB174 /* SearchDatesCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F38E0E320C7F1DD00DBB174 /* SearchDatesCalculatorTests.swift */; };
 		9F38E0FA20C80E5D00DBB174 /* SearchResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F38E0F920C80E5D00DBB174 /* SearchResultVC.swift */; };
 		9F38E0FD20C8120B00DBB174 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F38E0FB20C8120B00DBB174 /* SearchResultCell.swift */; };
 		9F38E0FE20C8120B00DBB174 /* SearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F38E0FC20C8120B00DBB174 /* SearchResultCell.xib */; };
+		9F38E10020C8375A00DBB174 /* MainSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F38E0FF20C8375A00DBB174 /* MainSearchVC.swift */; };
+		9F38E10220C838ED00DBB174 /* SearchDatesCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F38E10120C838ED00DBB174 /* SearchDatesCalculator.swift */; };
+		9F38E10420C84FE300DBB174 /* SearchPerformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F38E10320C84FE300DBB174 /* SearchPerformer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,20 +33,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2936B381DCD59561CB1BBF6C /* Pods_SkyscannerTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SkyscannerTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C42D08E0E7DE7134A2A6798 /* Pods-SkyscannerTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkyscannerTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-SkyscannerTest/Pods-SkyscannerTest.release.xcconfig"; sourceTree = "<group>"; };
+		9823585302FAE2DBD7824E07 /* Pods-SkyscannerTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkyscannerTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SkyscannerTest/Pods-SkyscannerTest.debug.xcconfig"; sourceTree = "<group>"; };
 		9F38E0C920C7F1DB00DBB174 /* SkyscannerTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkyscannerTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F38E0CC20C7F1DB00DBB174 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9F38E0CE20C7F1DB00DBB174 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		9F38E0D020C7F1DB00DBB174 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		9F38E0D320C7F1DB00DBB174 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9F38E0D520C7F1DD00DBB174 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9F38E0D820C7F1DD00DBB174 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9F38E0DA20C7F1DD00DBB174 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F38E0DF20C7F1DD00DBB174 /* SkyscannerTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SkyscannerTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9F38E0E320C7F1DD00DBB174 /* SkyscannerTestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyscannerTestTests.swift; sourceTree = "<group>"; };
+		9F38E0E320C7F1DD00DBB174 /* SearchDatesCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDatesCalculatorTests.swift; sourceTree = "<group>"; };
 		9F38E0E520C7F1DD00DBB174 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F38E0F920C80E5D00DBB174 /* SearchResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultVC.swift; sourceTree = "<group>"; };
 		9F38E0FB20C8120B00DBB174 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		9F38E0FC20C8120B00DBB174 /* SearchResultCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResultCell.xib; sourceTree = "<group>"; };
+		9F38E0FF20C8375A00DBB174 /* MainSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSearchVC.swift; sourceTree = "<group>"; };
+		9F38E10120C838ED00DBB174 /* SearchDatesCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDatesCalculator.swift; sourceTree = "<group>"; };
+		9F38E10320C84FE300DBB174 /* SearchPerformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPerformer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				249C5D71885E0B89B371A025 /* Pods_SkyscannerTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,12 +73,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5AAB5964132E4563941643CE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9823585302FAE2DBD7824E07 /* Pods-SkyscannerTest.debug.xcconfig */,
+				5C42D08E0E7DE7134A2A6798 /* Pods-SkyscannerTest.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		9F38E0C020C7F1DB00DBB174 = {
 			isa = PBXGroup;
 			children = (
 				9F38E0CB20C7F1DB00DBB174 /* SkyscannerTest */,
 				9F38E0E220C7F1DD00DBB174 /* SkyscannerTestTests */,
 				9F38E0CA20C7F1DB00DBB174 /* Products */,
+				5AAB5964132E4563941643CE /* Pods */,
+				B816DDD8DDBAC08F5AC42076 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -88,7 +108,6 @@
 				9F38E0F820C80E4200DBB174 /* Search */,
 				9F38E0CC20C7F1DB00DBB174 /* AppDelegate.swift */,
 				9F38E0CE20C7F1DB00DBB174 /* FirstViewController.swift */,
-				9F38E0D020C7F1DB00DBB174 /* SecondViewController.swift */,
 				9F38E0D220C7F1DB00DBB174 /* Main.storyboard */,
 				9F38E0D520C7F1DD00DBB174 /* Assets.xcassets */,
 				9F38E0D720C7F1DD00DBB174 /* LaunchScreen.storyboard */,
@@ -100,7 +119,7 @@
 		9F38E0E220C7F1DD00DBB174 /* SkyscannerTestTests */ = {
 			isa = PBXGroup;
 			children = (
-				9F38E0E320C7F1DD00DBB174 /* SkyscannerTestTests.swift */,
+				9F38E0E320C7F1DD00DBB174 /* SearchDatesCalculatorTests.swift */,
 				9F38E0E520C7F1DD00DBB174 /* Info.plist */,
 			);
 			path = SkyscannerTestTests;
@@ -109,11 +128,22 @@
 		9F38E0F820C80E4200DBB174 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				9F38E0FF20C8375A00DBB174 /* MainSearchVC.swift */,
 				9F38E0F920C80E5D00DBB174 /* SearchResultVC.swift */,
 				9F38E0FB20C8120B00DBB174 /* SearchResultCell.swift */,
 				9F38E0FC20C8120B00DBB174 /* SearchResultCell.xib */,
+				9F38E10120C838ED00DBB174 /* SearchDatesCalculator.swift */,
+				9F38E10320C84FE300DBB174 /* SearchPerformer.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		B816DDD8DDBAC08F5AC42076 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2936B381DCD59561CB1BBF6C /* Pods_SkyscannerTest.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -123,9 +153,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9F38E0E820C7F1DD00DBB174 /* Build configuration list for PBXNativeTarget "SkyscannerTest" */;
 			buildPhases = (
+				34AA3849849D868A905197F9 /* [CP] Check Pods Manifest.lock */,
 				9F38E0C520C7F1DB00DBB174 /* Sources */,
 				9F38E0C620C7F1DB00DBB174 /* Frameworks */,
 				9F38E0C720C7F1DB00DBB174 /* Resources */,
+				DE20CAF465D2C10C39BE8E72 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -213,14 +245,55 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		34AA3849849D868A905197F9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SkyscannerTest-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DE20CAF465D2C10C39BE8E72 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SkyscannerTest/Pods-SkyscannerTest-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SkyscannerTest/Pods-SkyscannerTest-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		9F38E0C520C7F1DB00DBB174 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F38E0D120C7F1DB00DBB174 /* SecondViewController.swift in Sources */,
 				9F38E0FA20C80E5D00DBB174 /* SearchResultVC.swift in Sources */,
+				9F38E10420C84FE300DBB174 /* SearchPerformer.swift in Sources */,
+				9F38E10220C838ED00DBB174 /* SearchDatesCalculator.swift in Sources */,
 				9F38E0CD20C7F1DB00DBB174 /* AppDelegate.swift in Sources */,
+				9F38E10020C8375A00DBB174 /* MainSearchVC.swift in Sources */,
 				9F38E0CF20C7F1DB00DBB174 /* FirstViewController.swift in Sources */,
 				9F38E0FD20C8120B00DBB174 /* SearchResultCell.swift in Sources */,
 			);
@@ -230,7 +303,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F38E0E420C7F1DD00DBB174 /* SkyscannerTestTests.swift in Sources */,
+				9F38E0E420C7F1DD00DBB174 /* SearchDatesCalculatorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,6 +453,7 @@
 		};
 		9F38E0E920C7F1DD00DBB174 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9823585302FAE2DBD7824E07 /* Pods-SkyscannerTest.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -398,6 +472,7 @@
 		};
 		9F38E0EA20C7F1DD00DBB174 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5C42D08E0E7DE7134A2A6798 /* Pods-SkyscannerTest.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

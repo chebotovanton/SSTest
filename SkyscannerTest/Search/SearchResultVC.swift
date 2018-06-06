@@ -1,29 +1,33 @@
 import UIKit
 
-class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, SearchPerformerDelegate {
 
     private let kCellIdentifier = "SearchResultCell"
     @IBOutlet private weak var collectionView: UICollectionView?
 
+    private var searchPerformer: SearchPerformer {
+        let searchPerformer = SearchPerformer()
+        searchPerformer.delegate = self
+
+        return searchPerformer
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        navigationItem.largeTitleDisplayMode = .always
 
         collectionView?.register(UINib(nibName: "SearchResultCell", bundle: nil), forCellWithReuseIdentifier: kCellIdentifier)
 
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 10
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 10)
         collectionView?.setCollectionViewLayout(layout, animated: false)
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func startSearch(_ searchInfo: SearchInfo) {
+        searchPerformer.startSearch(searchInfo)
     }
-    */
 
     // MARK: - UICollectionViewDataSource
 
@@ -39,5 +43,17 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         return CGSize(width: collectionView.frame.width, height: 194)
     }
 
+    // MARK: - SearchPerformerDelegate
+
+    func didReceiveData() {
+    }
+
+    func didFail(with error: Error) {
+
+    }
+
+    func didFinishSearch() {
+
+    }
 
 }

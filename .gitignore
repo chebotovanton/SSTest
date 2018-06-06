@@ -1,0 +1,5 @@
+build/
+DerivedData
+Pods/
+xcuserdata
+SkyscannerTest.xcodeproj/project.xcworkspace/xcuserdata
