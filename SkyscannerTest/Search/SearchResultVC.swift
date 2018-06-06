@@ -1,6 +1,6 @@
 import UIKit
 
-class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     private let kCellIdentifier = "SearchResultCell"
     @IBOutlet private weak var collectionView: UICollectionView?
@@ -9,9 +9,11 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         super.viewDidLoad()
 
         collectionView?.register(UINib(nibName: "SearchResultCell", bundle: nil), forCellWithReuseIdentifier: kCellIdentifier)
+
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 10
+        collectionView?.setCollectionViewLayout(layout, animated: false)
     }
-
-
 
     /*
     // MARK: - Navigation
@@ -31,6 +33,10 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         return collectionView.dequeueReusableCell(withReuseIdentifier: kCellIdentifier, for: indexPath)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 194)
     }
 
 
