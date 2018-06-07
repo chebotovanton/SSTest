@@ -21,6 +21,7 @@
 		9F38E10220C838ED00DBB174 /* SearchDatesCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F38E10120C838ED00DBB174 /* SearchDatesCalculator.swift */; };
 		9F38E10420C84FE300DBB174 /* SearchPerformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F38E10320C84FE300DBB174 /* SearchPerformer.swift */; };
 		9F38E10720C86E5800DBB174 /* STTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F38E10620C86E5800DBB174 /* STTabBarController.swift */; };
+		9F38E10920C96A8900DBB174 /* ResultsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F38E10820C96A8900DBB174 /* ResultsParser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		9F38E10120C838ED00DBB174 /* SearchDatesCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDatesCalculator.swift; sourceTree = "<group>"; };
 		9F38E10320C84FE300DBB174 /* SearchPerformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPerformer.swift; sourceTree = "<group>"; };
 		9F38E10620C86E5800DBB174 /* STTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STTabBarController.swift; sourceTree = "<group>"; };
+		9F38E10820C96A8900DBB174 /* ResultsParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 				9F38E0FC20C8120B00DBB174 /* SearchResultCell.xib */,
 				9F38E10120C838ED00DBB174 /* SearchDatesCalculator.swift */,
 				9F38E10320C84FE300DBB174 /* SearchPerformer.swift */,
+				9F38E10820C96A8900DBB174 /* ResultsParser.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 			files = (
 				9F38E0FA20C80E5D00DBB174 /* SearchResultVC.swift in Sources */,
 				9F38E10420C84FE300DBB174 /* SearchPerformer.swift in Sources */,
+				9F38E10920C96A8900DBB174 /* ResultsParser.swift in Sources */,
 				9F38E10720C86E5800DBB174 /* STTabBarController.swift in Sources */,
 				9F38E10220C838ED00DBB174 /* SearchDatesCalculator.swift in Sources */,
 				9F38E0CD20C7F1DB00DBB174 /* AppDelegate.swift in Sources */,

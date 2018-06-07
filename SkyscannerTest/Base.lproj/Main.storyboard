@@ -128,10 +128,16 @@
                                     <outlet property="delegate" destination="lki-tR-4H3" id="BD4-Cb-smh"/>
                                 </connections>
                             </collectionView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="iWk-9m-9G4">
+                                <rect key="frame" x="170" y="315" width="37" height="37"/>
+                                <color key="color" red="0.0" green="0.69803921570000005" blue="0.83921568629999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="xa7-iK-fIo" firstAttribute="trailing" secondItem="a7X-ib-QRB" secondAttribute="trailing" id="DMn-DX-kwH"/>
+                            <constraint firstItem="iWk-9m-9G4" firstAttribute="centerX" secondItem="xa7-iK-fIo" secondAttribute="centerX" id="E9F-ci-2LU"/>
+                            <constraint firstItem="iWk-9m-9G4" firstAttribute="centerY" secondItem="xa7-iK-fIo" secondAttribute="centerY" id="Htt-yQ-rEe"/>
                             <constraint firstItem="a7X-ib-QRB" firstAttribute="top" secondItem="xa7-iK-fIo" secondAttribute="top" id="nLB-Nb-HOf"/>
                             <constraint firstItem="xa7-iK-fIo" firstAttribute="bottom" secondItem="a7X-ib-QRB" secondAttribute="bottom" id="pwI-2C-5Fn"/>
                             <constraint firstItem="a7X-ib-QRB" firstAttribute="leading" secondItem="xa7-iK-fIo" secondAttribute="leading" id="yMe-9j-Eqs"/>
@@ -139,6 +145,7 @@
                         <viewLayoutGuide key="safeArea" id="xa7-iK-fIo"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="iWk-9m-9G4" id="swK-lM-CRf"/>
                         <outlet property="collectionView" destination="a7X-ib-QRB" id="Wiw-CH-Pid"/>
                     </connections>
                 </viewController>

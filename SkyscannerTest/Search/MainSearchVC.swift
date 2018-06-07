@@ -6,7 +6,6 @@ struct SearchInfo {
     var outboundDate = SearchDatesCalculator.nextMondayString(from: Date())
     var inboundDate =  SearchDatesCalculator.nextTuesdayString(from: Date())
     var locationSchema = "sky"
-    var apiKey = "ss630745725358065467897349852985"
 }
 
 class MainSearchVC: UIViewController {

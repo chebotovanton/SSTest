@@ -26,4 +26,8 @@ class SearchResultCell: UICollectionViewCell {
         // Initialization code
     }
 
+    func setup(_ itinerary: Itinerary) {
+        priceLabel?.text = String(itinerary.price)
+    }
+
 }
