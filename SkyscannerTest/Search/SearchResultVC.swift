@@ -4,6 +4,7 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
 
     private let kCellIdentifier = "SearchResultCell"
     @IBOutlet private weak var collectionView: UICollectionView?
+    @IBOutlet private weak var statusLabel: UILabel?
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView?
     private var itineraries: [Itinerary] = []
 
@@ -22,6 +23,7 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         collectionView?.setCollectionViewLayout(layout, animated: false)
 
         collectionView?.alpha = 0
+        statusLabel?.text = "Initializing search session"
     }
 
     func startSearch(_ searchInfo: SearchInfo) {
@@ -54,15 +56,26 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
 
     func didStartSearch() {
         UIView.animate(withDuration: 0.5, animations: { [weak self] in
-            self?.collectionView?.alpha = 1
-            self?.activityIndicator?.alpha = 0
+            self?.statusLabel?.alpha = 0
         }) { [weak self] (finished) in
-            self?.activityIndicator?.stopAnimating()
+            self?.statusLabel?.text = "Fetching results"
+            UIView.animate(withDuration: 0.5,
+                           animations: { [weak self] in self?.statusLabel?.alpha = 1 },
+                           completion: nil)
         }
     }
 
     func didReceiveData(_ newItiniraries: [Itinerary]) {
         itineraries = itineraries + newItiniraries
+        if itineraries.count > 0 {
+            UIView.animate(withDuration: 0.5, animations: { [weak self] in
+                self?.collectionView?.alpha = 1
+                self?.activityIndicator?.alpha = 0
+                self?.statusLabel?.alpha = 0
+            }) { [weak self] (finished) in
+                self?.activityIndicator?.stopAnimating()
+            }
+        }
         collectionView?.reloadData()
     }
 
