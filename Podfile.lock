@@ -4,6 +4,7 @@ PODS:
     - Alamofire (~> 4.1)
     - ObjectMapper (~> 3.0)
   - ObjectMapper (3.1.0)
+  - PureLayout (3.0.2)
   - SDWebImage (4.3.3):
     - SDWebImage/Core (= 4.3.3)
   - SDWebImage/Core (4.3.3)
@@ -12,6 +13,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.7)
   - AlamofireObjectMapper (~> 5.0)
+  - PureLayout
   - SDWebImage
   - SwiftLint
 
@@ -20,6 +22,7 @@ SPEC REPOS:
     - Alamofire
     - AlamofireObjectMapper
     - ObjectMapper
+    - PureLayout
     - SDWebImage
     - SwiftLint
 
@@ -27,9 +30,10 @@ SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   AlamofireObjectMapper: 5fafc816351cbbc0d486611aaeba7461c0cbad49
   ObjectMapper: 20505058f54e5c3ca69e1d6de9897d152a5369a6
+  PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
 
-PODFILE CHECKSUM: ffa6a8e942d254cb5ebe490b5a7cdafe1f4572c1
+PODFILE CHECKSUM: 5e01d93dcf5fac39b45289831505ea744d0879f8
 
 COCOAPODS: 1.5.3

@@ -48,14 +48,17 @@ class SearchPerformer {
     }
 
     private func pollResults(parameters: [String: Any]) {
-        guard let pollingLocation = pollingLocation else { return }
+        guard let pollingLocation = pollingLocation else {
+            handleLoadingError(statusCode: nil)
+            return
+        }
         Alamofire.request(pollingLocation, parameters:parameters).responseObject { [weak self] (response: DataResponse<PollResponse>) in
             guard let pollResponse = response.result.value else {
                 self?.handleLoadingError(statusCode: response.response?.statusCode)
                 return
             }
 
-            DispatchQueue.global(qos: .userInitiated).sync {
+            DispatchQueue.global(qos: .background).sync {
                 let (itineraries, shouldContinueSearch) = ResultsParser.parseResults(pollResponse)
                 DispatchQueue.main.async {
                     self?.delegate?.didReceiveFirstPage(itineraries)
@@ -86,7 +89,7 @@ class SearchPerformer {
             }
 
             self?.lastPageIndex += 1
-            DispatchQueue.global(qos: .userInitiated).sync {
+            DispatchQueue.global(qos: .background).sync {
                 let (itineraries, _) = ResultsParser.parseResults(pollResponse)
                 DispatchQueue.main.async {
                     self?.delegate?.didReceiveNextPage(itineraries)
@@ -107,7 +110,13 @@ class SearchPerformer {
 
     private func handleLoadingError(statusCode: Int?) {
         if let httpCode = statusCode, httpCode == 304 {
-            state = .finished
+//            removeStatusBarActivityIndicator()
+//            state = .finished
+            // repeat the last request, not the first page polling
+            let parameters: [String: Any] = ["apiKey" : kApiKey,
+                                             "pageIndex" : 0,
+                                             "pageSize" : kPageSize]
+            pollResults(parameters: parameters)
         } else {
             state = .error
             removeStatusBarActivityIndicator()
