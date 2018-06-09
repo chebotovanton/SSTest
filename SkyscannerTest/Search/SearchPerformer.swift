@@ -3,7 +3,7 @@ import Alamofire
 protocol SearchPerformerDelegate: class {
     func didStartSearch()
     func didReceiveData(_ newItiniraries: [Itinerary])
-    func didFail(with error: Error)
+    func didFail(with error: Error?)
     func didFinishSearch(finished: Bool)
 }
 
@@ -25,20 +25,29 @@ class SearchPerformer {
 
     private func handleSessionCreationResponse(_ response: DataResponse<Any>) {
         if let pollingLocation = response.response?.allHeaderFields["Location"] as? String {
-            let parameters = ["apikey" : kApiKey]
+            let parameters: [String : Any] = ["apiKey" : kApiKey,
+                                              "pageIndex" : 0,
+                                              "pageSize" : 1]
             pollResults(pollingLocation: pollingLocation, parameters: parameters)
         }
     }
 
-    private func pollResults(pollingLocation: String, parameters: Dictionary<String, String>) {
-        Alamofire.request(pollingLocation, parameters:parameters).responseJSON { [weak self] (response) in
-            guard let json = response.result.value as? Dictionary<String, Any> else {
-                self?.removeStatusBarActivityIndicator()
-                self?.delegate?.didFinishSearch(finished: false)
+    private func pollResults(pollingLocation: String, parameters: Dictionary<String, Any>) {
+        let headers = ["Content-Type" : "application/json"]
+        Alamofire.request(pollingLocation, parameters:parameters, headers: headers).responseObject() { [weak self] (response: DataResponse<PollResponse>) in
+            guard let pollResponse = response.result.value else {
+                if let httpCode = response.response?.statusCode, httpCode == 304 {
+                    self?.pollResults(pollingLocation: pollingLocation, parameters: parameters)
+                } else {
+                    self?.removeStatusBarActivityIndicator()
+                    self?.delegate?.didFail(with: nil)
+                }
                 return
             }
-            let (iteniraries, shouldContinueSearch) = ResultsParser.parseResults(json)
-            self?.delegate?.didReceiveData(iteniraries)
+
+            //move to another thread
+            let (itineraries, shouldContinueSearch) = ResultsParser.parseResults(pollResponse)
+            self?.delegate?.didReceiveData(itineraries)
             if shouldContinueSearch {
                 // don't do it immediatelly?
                 self?.pollResults(pollingLocation: pollingLocation, parameters: parameters)
@@ -71,6 +80,6 @@ class SearchPerformer {
                       "adults" : "1",
                       "children" : "0",
                       "infants" : "0",
-                      "apikey" : kApiKey]
+                      "apiKey" : kApiKey]
     }
 }

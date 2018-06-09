@@ -19,7 +19,7 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
 
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 10
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         collectionView?.setCollectionViewLayout(layout, animated: false)
 
         collectionView?.alpha = 0
@@ -31,6 +31,21 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         searchPerformer.delegate = self
         searchPerformer.startSearch(searchInfo)
         self.searchPerformer = searchPerformer
+    }
+
+    private func switchStatusText(newText: String) {
+        let duration = 0.5
+        UIView.animate(withDuration: duration,
+                       delay: 0,
+                       options: .beginFromCurrentState,
+                       animations: { [weak self] in
+                        self?.statusLabel?.alpha = 0
+        }) { [weak self] (finished) in
+            self?.statusLabel?.text = newText
+            UIView.animate(withDuration: duration,
+                           animations: { [weak self] in self?.statusLabel?.alpha = 1 },
+                           completion: nil)
+        }
     }
 
     // MARK: - UICollectionViewDataSource
@@ -49,24 +64,23 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 194)
+        let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout
+        let sectionInset = (flowLayout?.sectionInset.right ?? 0) + (flowLayout?.sectionInset.left ?? 0)
+        let contentInset = collectionView.contentInset.left + collectionView.contentInset.right
+        let width = collectionView.frame.width - sectionInset - contentInset
+
+        return CGSize(width: width, height: 194)
     }
 
     // MARK: - SearchPerformerDelegate
 
     func didStartSearch() {
-        UIView.animate(withDuration: 0.5, animations: { [weak self] in
-            self?.statusLabel?.alpha = 0
-        }) { [weak self] (finished) in
-            self?.statusLabel?.text = "Fetching results"
-            UIView.animate(withDuration: 0.5,
-                           animations: { [weak self] in self?.statusLabel?.alpha = 1 },
-                           completion: nil)
-        }
+        switchStatusText(newText: "Fetching results")
     }
 
     func didReceiveData(_ newItiniraries: [Itinerary]) {
-        itineraries = itineraries + newItiniraries
+//        itineraries = itineraries + newItiniraries
+        itineraries = newItiniraries
         if itineraries.count > 0 {
             UIView.animate(withDuration: 0.5, animations: { [weak self] in
                 self?.collectionView?.alpha = 1
@@ -79,8 +93,8 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         collectionView?.reloadData()
     }
 
-    func didFail(with error: Error) {
-
+    func didFail(with error: Error?) {
+        switchStatusText(newText: "Oops, something went wrong")
     }
 
     func didFinishSearch(finished: Bool) {

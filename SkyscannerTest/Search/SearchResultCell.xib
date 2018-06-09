@@ -149,13 +149,13 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="332" height="194"/>
             <connections>
-                <outlet property="departureDescription" destination="KrS-F2-OZj" id="meb-5X-dwx"/>
-                <outlet property="departureDuration" destination="wGX-LO-BW7" id="bNv-xg-zLW"/>
-                <outlet property="departureLogo" destination="kFE-GU-71b" id="FJJ-Ny-5Z8"/>
-                <outlet property="departureTime" destination="7Z0-zN-aLy" id="d4g-yE-xVI"/>
-                <outlet property="departureType" destination="Uo7-yo-7xE" id="zRW-u5-Xaw"/>
                 <outlet property="featuresDescription" destination="KLj-oL-m32" id="8iv-nZ-3x7"/>
                 <outlet property="mutipleBookingsDescription" destination="hN6-Kg-KO6" id="znz-B0-HHG"/>
+                <outlet property="outboundDescription" destination="KrS-F2-OZj" id="4ss-l4-pTS"/>
+                <outlet property="outboundDuration" destination="wGX-LO-BW7" id="YGD-gt-kcu"/>
+                <outlet property="outboundLogo" destination="kFE-GU-71b" id="JsF-yl-zBd"/>
+                <outlet property="outboundTime" destination="7Z0-zN-aLy" id="dM1-iI-XtU"/>
+                <outlet property="outboundType" destination="Uo7-yo-7xE" id="sdw-Bt-fB8"/>
                 <outlet property="priceLabel" destination="aRk-8J-CfH" id="j38-QX-Vou"/>
                 <outlet property="ratingImageView" destination="Cic-9p-vFC" id="OoW-n6-KQa"/>
                 <outlet property="ratingLabel" destination="xJ8-Np-elC" id="gXz-Iz-3ef"/>

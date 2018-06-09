@@ -4,4 +4,5 @@ use_frameworks!
 
 target 'SkyscannerTest' do
     pod 'Alamofire', '~> 4.7'
+    pod 'AlamofireObjectMapper', '~> 5.0'
 end
