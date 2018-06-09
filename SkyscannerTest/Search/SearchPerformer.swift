@@ -22,6 +22,8 @@ class SearchPerformer {
     private let kApiKey = "ss630745725358065467897349852985"
 
     private var pollingLocation: String?
+    private let kPageSize = 10
+    private var lastPageIndex = 0
 
     private (set) var state: SearchPerformerState = .unknown
 
@@ -40,7 +42,7 @@ class SearchPerformer {
             self.pollingLocation = pollingLocation
             let parameters: [String : Any] = ["apiKey" : kApiKey,
                                               "pageIndex" : 0,
-                                              "pageSize" : 10]
+                                              "pageSize" : kPageSize]
             pollResults(parameters: parameters)
         }
     }
@@ -49,13 +51,7 @@ class SearchPerformer {
         guard let pollingLocation = pollingLocation else { return }
         Alamofire.request(pollingLocation, parameters:parameters).responseObject() { [weak self] (response: DataResponse<PollResponse>) in
             guard let pollResponse = response.result.value else {
-                if let httpCode = response.response?.statusCode, httpCode == 304 {
-                    self?.pollResults(parameters: parameters)
-                } else {
-                    self?.state = .error
-                    self?.removeStatusBarActivityIndicator()
-                    self?.delegate?.didFail(with: nil)
-                }
+                self?.handleLoadingError(statusCode: response.response?.statusCode)
                 return
             }
 
@@ -74,28 +70,34 @@ class SearchPerformer {
     }
 
     func pollNextPage() {
+        //code duplication?
         guard state == .finished, let pollingLocation = pollingLocation else { return }
         let parameters: [String : Any] = ["apiKey" : kApiKey,
-                      "pageIndex" : 1,
-                      "pageSize" : 10]
+                      "pageIndex" : lastPageIndex,
+                      "pageSize" : kPageSize]
         state = .loading
         Alamofire.request(pollingLocation, parameters:parameters).responseObject() { [weak self] (response: DataResponse<PollResponse>) in
             guard let pollResponse = response.result.value else {
-                if let httpCode = response.response?.statusCode, httpCode == 304 {
-                    self?.state = .finished
-                } else {
-                    self?.state = .error
-                    self?.removeStatusBarActivityIndicator()
-                    self?.delegate?.didFail(with: nil)
-                }
+                self?.handleLoadingError(statusCode: response.response?.statusCode)
                 return
             }
 
+            self?.lastPageIndex += 1
             //move to another thread
             let (itineraries, _) = ResultsParser.parseResults(pollResponse)
             self?.delegate?.didReceiveNextPage(itineraries)
             self?.removeStatusBarActivityIndicator()
             self?.state = .finished
+        }
+    }
+
+    private func handleLoadingError(statusCode: Int?) {
+        if let httpCode = statusCode, httpCode == 304 {
+            state = .finished
+        } else {
+            state = .error
+            removeStatusBarActivityIndicator()
+            delegate?.didFail(with: nil)
         }
     }
 
