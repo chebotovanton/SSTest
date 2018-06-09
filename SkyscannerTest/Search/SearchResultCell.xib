@@ -69,8 +69,8 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="332" height="194"/>
             <connections>
+                <outlet property="carriersLabel" destination="hN6-Kg-KO6" id="MwQ-Ua-wD1"/>
                 <outlet property="featuresDescription" destination="KLj-oL-m32" id="8iv-nZ-3x7"/>
-                <outlet property="mutipleBookingsDescription" destination="hN6-Kg-KO6" id="znz-B0-HHG"/>
                 <outlet property="priceLabel" destination="aRk-8J-CfH" id="j38-QX-Vou"/>
                 <outlet property="ratingImageView" destination="Cic-9p-vFC" id="OoW-n6-KQa"/>
                 <outlet property="ratingLabel" destination="xJ8-Np-elC" id="gXz-Iz-3ef"/>

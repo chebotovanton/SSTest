@@ -10,7 +10,7 @@ class SearchResultCell: UICollectionViewCell {
     @IBOutlet private weak var ratingImageView: UIImageView?
     @IBOutlet private weak var ratingLabel: UILabel?
     @IBOutlet private weak var featuresDescription: UILabel?
-    @IBOutlet private weak var mutipleBookingsDescription: UILabel?
+    @IBOutlet private weak var carriersLabel: UILabel?
 
     @IBOutlet private weak var priceLabel: UILabel?
 
@@ -38,7 +38,21 @@ class SearchResultCell: UICollectionViewCell {
 
     func setup(_ itinerary: Itinerary) {
         priceLabel?.text = PriceFormatter.priceString(itinerary: itinerary)
+        carriersLabel?.text = carriersString(itinerary)
+
         outboundLegInfoView.setup(leg: itinerary.outboundLeg)
         inboundLegInfoView.setup(leg: itinerary.inboundLeg)
+    }
+
+    private func carriersString(_ itinerary: Itinerary) -> String {
+        let inboundCarriersNames = itinerary.inboundLeg?.segments.compactMap { $0.carrier?.name } ?? []
+        let outboundCarriersNames = itinerary.outboundLeg?.segments.compactMap { $0.carrier?.name } ?? []
+        let allNames = Set(inboundCarriersNames + outboundCarriersNames)
+        if allNames.count == 1 {
+            return "via " + allNames.first!
+        } else {
+            return "\(allNames.count) bookings required"
+        }
+
     }
 }
