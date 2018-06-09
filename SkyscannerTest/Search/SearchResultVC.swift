@@ -6,6 +6,8 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBOutlet private weak var collectionView: UICollectionView?
     @IBOutlet private weak var statusLabel: UILabel?
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView?
+    @IBOutlet private weak var navBarView: UIView?
+    @IBOutlet private weak var resultsCountLabel: UILabel?
     private var itineraries: [Itinerary] = []
 
     private var searchPerformer: SearchPerformer?
@@ -25,6 +27,12 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
 
         collectionView?.alpha = 0
         statusLabel?.text = "Initializing search session"
+
+        navBarView?.layer.shadowOffset = CGSize(width: 0, height: 3)
+        navBarView?.layer.shadowRadius = 8
+        navBarView?.layer.shadowColor = UIColor(red: 84.0/255.0, green: 76.0/255.0, blue: 99.0/255.0, alpha: 0.36).cgColor
+        navBarView?.layer.shadowOpacity = 1
+        navBarView?.layer.masksToBounds = false
     }
 
     deinit {
@@ -51,6 +59,11 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
                                animations: { [weak self] in self?.statusLabel?.alpha = 1 },
                                completion: nil)
         })
+    }
+
+    private func updateResultsCountLabel() {
+        let count = itineraries.count
+        resultsCountLabel?.text = "\(count) of \(count) results shown"
     }
 
     // MARK: - UICollectionViewDataSource
@@ -99,11 +112,13 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
             })
         }
         collectionView?.reloadData()
+        updateResultsCountLabel()
     }
 
     func didReceiveNextPage(_ newItiniraries: [Itinerary]) {
         itineraries += newItiniraries
         collectionView?.reloadData()
+        updateResultsCountLabel()
     }
 
     func didFail(with error: Error?) {

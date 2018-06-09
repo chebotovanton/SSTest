@@ -18,6 +18,7 @@ class MainSearchVC: UIViewController {
         super.viewDidLoad()
 
         datesLabel?.text = searchInfo.outboundDate + " – " + searchInfo.inboundDate
+        navigationController?.isNavigationBarHidden = true
     }
 
     // MARK: - Navigation
