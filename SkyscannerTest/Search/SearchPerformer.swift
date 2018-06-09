@@ -2,9 +2,16 @@ import Alamofire
 
 protocol SearchPerformerDelegate: class {
     func didStartSearch()
-    func didReceiveData(_ newItiniraries: [Itinerary])
+    func didReceiveFirstPage(_ itiniraries: [Itinerary])
+    func didReceiveNextPage(_ newItiniraries: [Itinerary])
     func didFail(with error: Error?)
-    func didFinishSearch(finished: Bool)
+}
+
+enum SearchPerformerState {
+    case unknown
+    case loading
+    case finished
+    case error
 }
 
 class SearchPerformer {
@@ -14,6 +21,10 @@ class SearchPerformer {
     private let kCreateSessionUrl = "pricing/v1.0"
     private let kApiKey = "ss630745725358065467897349852985"
 
+    private var pollingLocation: String?
+
+    private (set) var state: SearchPerformerState = .unknown
+
     func startSearch(_ searchInfo: SearchInfo) {
         addStatusBarActivityIndicator()
         let parameters = parametersDict(from: searchInfo)
@@ -21,24 +32,27 @@ class SearchPerformer {
             self?.delegate?.didStartSearch()
             self?.handleSessionCreationResponse(response)
         }
+        state = .loading
     }
 
     private func handleSessionCreationResponse(_ response: DataResponse<Any>) {
         if let pollingLocation = response.response?.allHeaderFields["Location"] as? String {
+            self.pollingLocation = pollingLocation
             let parameters: [String : Any] = ["apiKey" : kApiKey,
                                               "pageIndex" : 0,
-                                              "pageSize" : 1]
-            pollResults(pollingLocation: pollingLocation, parameters: parameters)
+                                              "pageSize" : 10]
+            pollResults(parameters: parameters)
         }
     }
 
-    private func pollResults(pollingLocation: String, parameters: Dictionary<String, Any>) {
-        let headers = ["Content-Type" : "application/json"]
-        Alamofire.request(pollingLocation, parameters:parameters, headers: headers).responseObject() { [weak self] (response: DataResponse<PollResponse>) in
+    private func pollResults(parameters: Dictionary<String, Any>) {
+        guard let pollingLocation = pollingLocation else { return }
+        Alamofire.request(pollingLocation, parameters:parameters).responseObject() { [weak self] (response: DataResponse<PollResponse>) in
             guard let pollResponse = response.result.value else {
                 if let httpCode = response.response?.statusCode, httpCode == 304 {
-                    self?.pollResults(pollingLocation: pollingLocation, parameters: parameters)
+                    self?.pollResults(parameters: parameters)
                 } else {
+                    self?.state = .error
                     self?.removeStatusBarActivityIndicator()
                     self?.delegate?.didFail(with: nil)
                 }
@@ -47,17 +61,45 @@ class SearchPerformer {
 
             //move to another thread
             let (itineraries, shouldContinueSearch) = ResultsParser.parseResults(pollResponse)
-            self?.delegate?.didReceiveData(itineraries)
+            self?.delegate?.didReceiveFirstPage(itineraries)
             if shouldContinueSearch {
-                // don't do it immediatelly?
-                self?.pollResults(pollingLocation: pollingLocation, parameters: parameters)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    self?.pollResults(parameters: parameters)
+                }
             } else {
                 self?.removeStatusBarActivityIndicator()
-                self?.delegate?.didFinishSearch(finished: true)
+                self?.state = .finished
             }
         }
     }
 
+    func pollNextPage() {
+        guard state == .finished, let pollingLocation = pollingLocation else { return }
+        let parameters: [String : Any] = ["apiKey" : kApiKey,
+                      "pageIndex" : 1,
+                      "pageSize" : 10]
+        state = .loading
+        Alamofire.request(pollingLocation, parameters:parameters).responseObject() { [weak self] (response: DataResponse<PollResponse>) in
+            guard let pollResponse = response.result.value else {
+                if let httpCode = response.response?.statusCode, httpCode == 304 {
+                    self?.state = .finished
+                } else {
+                    self?.state = .error
+                    self?.removeStatusBarActivityIndicator()
+                    self?.delegate?.didFail(with: nil)
+                }
+                return
+            }
+
+            //move to another thread
+            let (itineraries, _) = ResultsParser.parseResults(pollResponse)
+            self?.delegate?.didReceiveNextPage(itineraries)
+            self?.removeStatusBarActivityIndicator()
+            self?.state = .finished
+        }
+    }
+
+    // move somewhere
     private func addStatusBarActivityIndicator() {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
     }

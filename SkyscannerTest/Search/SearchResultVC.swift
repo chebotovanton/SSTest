@@ -61,6 +61,10 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
             resultCell.setup(itineraries[indexPath.row])
         }
 
+        if indexPath.row == itineraries.count - 1 {
+            searchPerformer?.pollNextPage()
+        }
+
         return cell
     }
 
@@ -79,9 +83,8 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         switchStatusText(newText: "Fetching results")
     }
 
-    func didReceiveData(_ newItiniraries: [Itinerary]) {
-//        itineraries = itineraries + newItiniraries
-        itineraries = newItiniraries
+    func didReceiveFirstPage(_ itiniraries: [Itinerary]) {
+        itineraries = itiniraries
         if itineraries.count > 0 {
             UIView.animate(withDuration: 0.5, animations: { [weak self] in
                 self?.collectionView?.alpha = 1
@@ -94,11 +97,12 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         collectionView?.reloadData()
     }
 
-    func didFail(with error: Error?) {
-        switchStatusText(newText: "Oops, something went wrong")
+    func didReceiveNextPage(_ newItiniraries: [Itinerary]) {
+        itineraries = itineraries + newItiniraries
+        collectionView?.reloadData()
     }
 
-    func didFinishSearch(finished: Bool) {
-        
+    func didFail(with error: Error?) {
+        switchStatusText(newText: "Oops, something went wrong")
     }
 }
