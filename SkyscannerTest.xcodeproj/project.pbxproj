@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		249C5D71885E0B89B371A025 /* Pods_SkyscannerTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2936B381DCD59561CB1BBF6C /* Pods_SkyscannerTest.framework */; };
 		9F38E0CD20C7F1DB00DBB174 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F38E0CC20C7F1DB00DBB174 /* AppDelegate.swift */; };
-		9F38E0CF20C7F1DB00DBB174 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F38E0CE20C7F1DB00DBB174 /* FirstViewController.swift */; };
 		9F38E0D420C7F1DB00DBB174 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F38E0D220C7F1DB00DBB174 /* Main.storyboard */; };
 		9F38E0D620C7F1DD00DBB174 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F38E0D520C7F1DD00DBB174 /* Assets.xcassets */; };
 		9F38E0D920C7F1DD00DBB174 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F38E0D720C7F1DD00DBB174 /* LaunchScreen.storyboard */; };
@@ -43,7 +42,6 @@
 		9823585302FAE2DBD7824E07 /* Pods-SkyscannerTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkyscannerTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SkyscannerTest/Pods-SkyscannerTest.debug.xcconfig"; sourceTree = "<group>"; };
 		9F38E0C920C7F1DB00DBB174 /* SkyscannerTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkyscannerTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F38E0CC20C7F1DB00DBB174 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9F38E0CE20C7F1DB00DBB174 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		9F38E0D320C7F1DB00DBB174 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9F38E0D520C7F1DD00DBB174 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9F38E0D820C7F1DD00DBB174 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -120,7 +118,6 @@
 				9F38E0F820C80E4200DBB174 /* Search */,
 				9FB1D03E20CC30B700C6E72B /* Utils */,
 				9F38E0CC20C7F1DB00DBB174 /* AppDelegate.swift */,
-				9F38E0CE20C7F1DB00DBB174 /* FirstViewController.swift */,
 				9F38E0D220C7F1DB00DBB174 /* Main.storyboard */,
 				9F38E0D520C7F1DD00DBB174 /* Assets.xcassets */,
 				9F38E0D720C7F1DD00DBB174 /* LaunchScreen.storyboard */,
@@ -359,7 +356,6 @@
 				9F38E0CD20C7F1DB00DBB174 /* AppDelegate.swift in Sources */,
 				9FB1D03D20CC13DF00C6E72B /* LegInfoView.swift in Sources */,
 				9F38E10020C8375A00DBB174 /* MainSearchVC.swift in Sources */,
-				9F38E0CF20C7F1DB00DBB174 /* FirstViewController.swift in Sources */,
 				9F38E0FD20C8120B00DBB174 /* SearchResultCell.swift in Sources */,
 				9FB1D03820CC0B9500C6E72B /* SearchDatesCalculator.swift in Sources */,
 			);
