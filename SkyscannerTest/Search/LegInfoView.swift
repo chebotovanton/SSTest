@@ -53,6 +53,7 @@ class LegInfoView: UIView {
     private func addConstraints() {
         logoView.autoPinEdge(toSuperviewEdge: .left)
         logoView.autoPinEdge(toSuperviewEdge: .top)
+        logoView.autoSetDimensions(to: CGSize(width: 31, height: 31))
 
         timeLabel.autoPinEdge(toSuperviewEdge: .top, withInset: -2)
         timeLabel.autoPinEdge(.leading, to: .trailing, of: logoView, withOffset: 16)
