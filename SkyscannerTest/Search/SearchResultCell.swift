@@ -37,16 +37,8 @@ class SearchResultCell: UICollectionViewCell {
     }
 
     func setup(_ itinerary: Itinerary) {
-        priceLabel?.text = priceString(itinerary: itinerary)
+        priceLabel?.text = PriceFormatter.priceString(itinerary: itinerary)
         outboundLegInfoView.setup(leg: itinerary.outboundLeg)
         inboundLegInfoView.setup(leg: itinerary.inboundLeg)
-    }
-
-    private func priceString(itinerary: Itinerary) -> String {
-        //return lowest price
-        if let minPrice = itinerary.pricingOptions?.first?.price {
-            return "£\(minPrice)"
-        }
-        return "Unknown"
     }
 }

@@ -36,6 +36,9 @@ class Itinerary: Mappable {
     required init?(map: Map) {
     }
 
+    init() {
+    }
+
     func mapping(map: Map) {
         outboundLegId <- map["OutboundLegId"]
         inboundLegId <- map["InboundLegId"]
@@ -78,16 +81,21 @@ class Leg: Mappable {
     }
 }
 
-struct PricingOption: Mappable {
-    var price: Double?
-    var deeplinkUrl: String?
+struct PricingOption: ImmutableMappable {
+    var price: Double
+    var deeplinkUrl: String
 
-    init?(map: Map) {
+    init(map: Map) throws {
+        price = try map.value("Price")
+        deeplinkUrl = try map.value("DeeplinkUrl")
+    }
+
+    init(price: Double, deeplinkUrl: String) {
+        self.price = price
+        self.deeplinkUrl = deeplinkUrl
     }
 
     mutating func mapping(map: Map) {
-        price <- map["Price"]
-        deeplinkUrl <- map["DeeplinkUrl"]
     }
 }
 

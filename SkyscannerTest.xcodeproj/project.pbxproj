@@ -23,6 +23,8 @@
 		9FB1D03920CC0B9500C6E72B /* SearchPerformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB1D03620CC0B9500C6E72B /* SearchPerformer.swift */; };
 		9FB1D03A20CC0B9500C6E72B /* ResultsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB1D03720CC0B9500C6E72B /* ResultsParser.swift */; };
 		9FB1D03D20CC13DF00C6E72B /* LegInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB1D03C20CC13DF00C6E72B /* LegInfoView.swift */; };
+		9FB1D04020CC30C800C6E72B /* PriceFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB1D03F20CC30C800C6E72B /* PriceFormatter.swift */; };
+		9FB1D04220CC312400C6E72B /* PriceFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB1D04120CC312400C6E72B /* PriceFormatterTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,8 @@
 		9FB1D03620CC0B9500C6E72B /* SearchPerformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPerformer.swift; sourceTree = "<group>"; };
 		9FB1D03720CC0B9500C6E72B /* ResultsParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsParser.swift; sourceTree = "<group>"; };
 		9FB1D03C20CC13DF00C6E72B /* LegInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegInfoView.swift; sourceTree = "<group>"; };
+		9FB1D03F20CC30C800C6E72B /* PriceFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceFormatter.swift; sourceTree = "<group>"; };
+		9FB1D04120CC312400C6E72B /* PriceFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceFormatterTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +118,7 @@
 				9FB1D03420CC0B9500C6E72B /* API */,
 				9F38E10520C86DC800DBB174 /* Menu */,
 				9F38E0F820C80E4200DBB174 /* Search */,
+				9FB1D03E20CC30B700C6E72B /* Utils */,
 				9F38E0CC20C7F1DB00DBB174 /* AppDelegate.swift */,
 				9F38E0CE20C7F1DB00DBB174 /* FirstViewController.swift */,
 				9F38E0D220C7F1DB00DBB174 /* Main.storyboard */,
@@ -127,6 +132,7 @@
 		9F38E0E220C7F1DD00DBB174 /* SkyscannerTestTests */ = {
 			isa = PBXGroup;
 			children = (
+				9FB1D04120CC312400C6E72B /* PriceFormatterTests.swift */,
 				9F38E0E320C7F1DD00DBB174 /* SearchDatesCalculatorTests.swift */,
 				9F38E0E520C7F1DD00DBB174 /* Info.plist */,
 			);
@@ -161,6 +167,14 @@
 				9FB1D03720CC0B9500C6E72B /* ResultsParser.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		9FB1D03E20CC30B700C6E72B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				9FB1D03F20CC30C800C6E72B /* PriceFormatter.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		B816DDD8DDBAC08F5AC42076 /* Frameworks */ = {
@@ -337,6 +351,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FB1D04020CC30C800C6E72B /* PriceFormatter.swift in Sources */,
 				9F38E0FA20C80E5D00DBB174 /* SearchResultVC.swift in Sources */,
 				9FB1D03920CC0B9500C6E72B /* SearchPerformer.swift in Sources */,
 				9F38E10720C86E5800DBB174 /* STTabBarController.swift in Sources */,
@@ -354,6 +369,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FB1D04220CC312400C6E72B /* PriceFormatterTests.swift in Sources */,
 				9F38E0E420C7F1DD00DBB174 /* SearchDatesCalculatorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -510,7 +526,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 64AA6VGY67;
 				INFOPLIST_FILE = SkyscannerTest/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = Chebotov.SkyscannerTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -526,7 +545,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 64AA6VGY67;
 				INFOPLIST_FILE = SkyscannerTest/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = Chebotov.SkyscannerTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -542,7 +564,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 64AA6VGY67;
 				INFOPLIST_FILE = SkyscannerTestTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = Chebotov.SkyscannerTestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -559,7 +585,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 64AA6VGY67;
 				INFOPLIST_FILE = SkyscannerTestTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = Chebotov.SkyscannerTestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
