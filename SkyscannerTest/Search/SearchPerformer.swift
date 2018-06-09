@@ -97,6 +97,14 @@ class SearchPerformer {
         }
     }
 
+    func stopLoading() {
+        removeStatusBarActivityIndicator()
+
+        SessionManager.default.session.getAllTasks { (tasks) in
+            tasks.forEach { $0.cancel() }
+        }
+    }
+
     private func handleLoadingError(statusCode: Int?) {
         if let httpCode = statusCode, httpCode == 304 {
             state = .finished

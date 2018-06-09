@@ -27,6 +27,10 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         statusLabel?.text = "Initializing search session"
     }
 
+    deinit {
+        self.searchPerformer?.stopLoading()
+    }
+
     func startSearch(_ searchInfo: SearchInfo) {
         let searchPerformer = SearchPerformer()
         searchPerformer.delegate = self
