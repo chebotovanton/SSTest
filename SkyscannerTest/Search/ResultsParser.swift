@@ -9,6 +9,8 @@ struct PollResponse: Mappable {
     var itineraries: [Itinerary]?
     var legs: [Leg]?
     var places: [Place]?
+    var segments: [Segment]?
+    var carriers: [Carrier]?
 
     init?(map: Map) {
     }
@@ -19,6 +21,8 @@ struct PollResponse: Mappable {
         itineraries <- map["Itineraries"]
         legs <- map["Legs"]
         places <- map["Places"]
+        segments <- map["Segments"]
+        carriers <- map["Carriers"]
     }
 }
 
@@ -50,6 +54,7 @@ class Leg: Mappable {
 
     var originStation: Place?
     var destinationStation: Place?
+    var segments: [Segment] = []
 
     required init?(map: Map) {
     }
@@ -91,20 +96,60 @@ struct Place: Mappable {
     }
 }
 
+class Segment: Mappable {
+    var segmentId: Int?
+    var carrierId: Int?
+
+    var carrier: Carrier?
+
+    required init?(map: Map) {
+    }
+
+    func mapping(map: Map) {
+        segmentId <- map["Id"]
+        carrierId <- map["Carrier"]
+    }
+}
+
+struct Carrier: Mappable {
+    var carrierId: Int?
+    var name: String?
+    var imageUrlString: String?
+
+    init?(map: Map) {
+    }
+
+    mutating func mapping(map: Map) {
+        carrierId <- map["Id"]
+        name <- map["Name"]
+        imageUrlString <- map["ImageUrl"]
+    }
+}
+
 class ResultsParser {
     static func parseResults(_ pollResponse: PollResponse) -> (results: Array<Itinerary>, shouldContinueSearch: Bool) {
         //fill itineraries with all other data
         //tests?
         // complexity? O(n)?
 
+        pollResponse.segments?.forEach({ (segment) in
+            segment.carrier = pollResponse.carriers?.first { $0.carrierId == segment.carrierId }
+        })
+
         pollResponse.legs?.forEach({ (leg) in
-            leg.originStation = pollResponse.places?.first(where: { $0.placeId == leg.originStationId })
-            leg.destinationStation = pollResponse.places?.first(where: { $0.placeId == leg.destinationStationId })
+            leg.originStation = pollResponse.places?.first { $0.placeId == leg.originStationId }
+            leg.destinationStation = pollResponse.places?.first { $0.placeId == leg.destinationStationId }
+
+            leg.segmentIds?.forEach({ (segmentId) in
+                if let segment = pollResponse.segments?.first(where: { $0.segmentId! == segmentId }) {
+                    leg.segments.append(segment)
+                }
+            })
         })
 
         pollResponse.itineraries?.forEach({ (itinerary) in
-            itinerary.inboundLeg = pollResponse.legs?.first(where: { $0.legId == itinerary.inboundLegId })
-            itinerary.outboundLeg = pollResponse.legs?.first(where: { $0.legId == itinerary.outboundLegId })
+            itinerary.inboundLeg = pollResponse.legs?.first { $0.legId == itinerary.inboundLegId }
+            itinerary.outboundLeg = pollResponse.legs?.first { $0.legId == itinerary.outboundLegId }
         })
 
         let shouldContinueSearch = (pollResponse.status != "UpdatesComplete")

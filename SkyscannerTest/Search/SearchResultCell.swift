@@ -1,4 +1,5 @@
 import UIKit
+import SDWebImage
 
 class SearchResultCell: UICollectionViewCell {
 
@@ -31,6 +32,9 @@ class SearchResultCell: UICollectionViewCell {
 
         outboundDescription?.text = descriptionString(leg: itinerary.outboundLeg)
         returnDescription?.text = descriptionString(leg: itinerary.inboundLeg)
+
+        setLogo(imageView: outboundLogo, leg: itinerary.outboundLeg)
+        setLogo(imageView: returnLogo, leg: itinerary.inboundLeg)
     }
 
     private func durationString(leg: Leg?) -> String {
@@ -62,11 +66,19 @@ class SearchResultCell: UICollectionViewCell {
     }
 
     private func descriptionString(leg: Leg?) -> String {
+        var result = ""
         if let originCode = leg?.originStation?.code, let destinationCode = leg?.destinationStation?.code {
-            return originCode + "–" + destinationCode + ", unknown carrier"
+            result += originCode + "–" + destinationCode
+        }
+        if let carrierName =  leg?.segments.first?.carrier?.name {
+            result += ", " + carrierName
         }
 
-        return "Unknown"
+        return result.count > 0 ? result : "Unknown"
+    }
+
+    private func setLogo(imageView: UIImageView?, leg: Leg?) {
+        imageView?.sd_setImage(with: URL(string: leg?.segments.first?.carrier?.imageUrlString ?? ""), completed: nil)
     }
 
 }
