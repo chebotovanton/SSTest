@@ -55,16 +55,19 @@ class SearchPerformer {
                 return
             }
 
-            //move to another thread
-            let (itineraries, shouldContinueSearch) = ResultsParser.parseResults(pollResponse)
-            self?.delegate?.didReceiveFirstPage(itineraries)
-            if shouldContinueSearch {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    self?.pollResults(parameters: parameters)
+            DispatchQueue.global(qos: .userInitiated).sync {
+                let (itineraries, shouldContinueSearch) = ResultsParser.parseResults(pollResponse)
+                DispatchQueue.main.async {
+                    self?.delegate?.didReceiveFirstPage(itineraries)
+                    if shouldContinueSearch {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            self?.pollResults(parameters: parameters)
+                        }
+                    } else {
+                        self?.removeStatusBarActivityIndicator()
+                        self?.state = .finished
+                    }
                 }
-            } else {
-                self?.removeStatusBarActivityIndicator()
-                self?.state = .finished
             }
         }
     }
@@ -83,11 +86,14 @@ class SearchPerformer {
             }
 
             self?.lastPageIndex += 1
-            //move to another thread
-            let (itineraries, _) = ResultsParser.parseResults(pollResponse)
-            self?.delegate?.didReceiveNextPage(itineraries)
-            self?.removeStatusBarActivityIndicator()
-            self?.state = .finished
+            DispatchQueue.global(qos: .userInitiated).sync {
+                let (itineraries, _) = ResultsParser.parseResults(pollResponse)
+                DispatchQueue.main.async {
+                    self?.delegate?.didReceiveNextPage(itineraries)
+                    self?.removeStatusBarActivityIndicator()
+                    self?.state = .finished
+                }
+            }
         }
     }
 
