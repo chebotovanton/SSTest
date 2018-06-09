@@ -17,6 +17,8 @@ enum SearchPerformerState {
 class SearchPerformer {
     weak var delegate: SearchPerformerDelegate?
 
+    var searchInfo: SearchInfo?
+
     private let kBaseUrl = "http://partners.api.skyscanner.net/apiservices/"
     private let kCreateSessionUrl = "pricing/v1.0"
     private let kApiKey = "ss630745725358065467897349852985"
@@ -28,6 +30,7 @@ class SearchPerformer {
     private (set) var state: SearchPerformerState = .unknown
 
     func startSearch(_ searchInfo: SearchInfo) {
+        self.searchInfo = searchInfo
         addStatusBarActivityIndicator()
         let parameters = parametersDict(from: searchInfo)
         Alamofire.request(kBaseUrl + kCreateSessionUrl, method: .post, parameters: parameters).responseJSON { [weak self] (response) in

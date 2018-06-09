@@ -8,6 +8,7 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView?
     @IBOutlet private weak var navBarView: UIView?
     @IBOutlet private weak var resultsCountLabel: UILabel?
+    @IBOutlet private weak var datesLabel: UILabel?
     private var itineraries: [Itinerary] = []
 
     private var searchPerformer: SearchPerformer?
@@ -33,6 +34,10 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         navBarView?.layer.shadowColor = UIColor(red: 84.0/255.0, green: 76.0/255.0, blue: 99.0/255.0, alpha: 0.36).cgColor
         navBarView?.layer.shadowOpacity = 1
         navBarView?.layer.masksToBounds = false
+
+        if let searchInfo = searchPerformer?.searchInfo {
+            datesLabel?.text = DatesStringFormatter.datesDescription(searchInfo: searchInfo)
+        }
     }
 
     deinit {
@@ -44,6 +49,8 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         searchPerformer.delegate = self
         searchPerformer.startSearch(searchInfo)
         self.searchPerformer = searchPerformer
+
+        datesLabel?.text = DatesStringFormatter.datesDescription(searchInfo: searchInfo)
     }
 
     private func switchStatusText(newText: String) {
@@ -64,6 +71,10 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     private func updateResultsCountLabel() {
         let count = itineraries.count
         resultsCountLabel?.text = "\(count) of \(count) results shown"
+    }
+
+    @IBAction private func goBack() {
+        navigationController?.popViewController(animated: true)
     }
 
     // MARK: - UICollectionViewDataSource

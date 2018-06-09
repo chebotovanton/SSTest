@@ -17,7 +17,7 @@ class MainSearchVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        datesLabel?.text = searchInfo.outboundDate + " – " + searchInfo.inboundDate
+        datesLabel?.text = DatesStringFormatter.datesDescription(searchInfo: searchInfo)
         navigationController?.isNavigationBarHidden = true
     }
 
