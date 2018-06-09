@@ -35,6 +35,9 @@ class SearchResultCell: UICollectionViewCell {
 
         setLogo(imageView: outboundLogo, leg: itinerary.outboundLeg)
         setLogo(imageView: returnLogo, leg: itinerary.inboundLeg)
+
+        outboundTime?.text = timeString(leg: itinerary.outboundLeg)
+        returnTime?.text = timeString(leg: itinerary.inboundLeg)
     }
 
     private func durationString(leg: Leg?) -> String {
@@ -60,7 +63,7 @@ class SearchResultCell: UICollectionViewCell {
     private func priceString(itinerary: Itinerary) -> String {
         //return lowest price
         if let minPrice = itinerary.pricingOptions?.first?.price {
-            return "\(minPrice)"
+            return "£\(minPrice)"
         }
         return "Unknown"
     }
@@ -68,7 +71,7 @@ class SearchResultCell: UICollectionViewCell {
     private func descriptionString(leg: Leg?) -> String {
         var result = ""
         if let originCode = leg?.originStation?.code, let destinationCode = leg?.destinationStation?.code {
-            result += originCode + "–" + destinationCode
+            result += originCode + "-" + destinationCode
         }
         if let carrierName =  leg?.segments.first?.carrier?.name {
             result += ", " + carrierName
@@ -78,7 +81,20 @@ class SearchResultCell: UICollectionViewCell {
     }
 
     private func setLogo(imageView: UIImageView?, leg: Leg?) {
-        imageView?.sd_setImage(with: URL(string: leg?.segments.first?.carrier?.imageUrlString ?? ""), completed: nil)
+        if let code = leg?.segments.first?.carrier?.code {
+            let urlString = String(format: "https://logos.skyscnr.com/images/airlines/favicon/%@.png", code)
+            imageView?.sd_setImage(with: URL(string:  urlString), completed: nil)
+        }
+    }
+
+    private func timeString(leg: Leg?) -> String {
+        if let departure = leg?.departure, let arrival = leg?.arrival {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "HH:mm"
+            return formatter.string(from: departure) + " - " + formatter.string(from: arrival)
+        }
+
+        return "Unknown"
     }
 
 }

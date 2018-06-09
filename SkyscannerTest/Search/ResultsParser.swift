@@ -44,10 +44,18 @@ class Itinerary: Mappable {
 }
 
 class Leg: Mappable {
+    static var dateTransform: DateFormatterTransform {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss"
+        let dateTransform = DateFormatterTransform(dateFormatter: dateFormatter)
+
+        return dateTransform
+    }
+
     var legId: String?
     var duration: Int?
-    var departure: String?
-    var arrival: String?
+    var departure: Date?
+    var arrival: Date?
     var originStationId: Int?
     var destinationStationId: Int?
     var segmentIds: [Int]?
@@ -63,8 +71,8 @@ class Leg: Mappable {
         legId <- map["Id"]
         segmentIds <- map["SegmentIds"]
         duration <- map["Duration"]
-        departure <- map["Departure"]
-        arrival <- map["Arrival"]
+        departure <- (map["Departure"], Leg.dateTransform)
+        arrival <- (map["Arrival"], Leg.dateTransform)
         originStationId <- map["OriginStation"]
         destinationStationId <- map["DestinationStation"]
     }
@@ -114,7 +122,7 @@ class Segment: Mappable {
 struct Carrier: Mappable {
     var carrierId: Int?
     var name: String?
-    var imageUrlString: String?
+    var code: String?
 
     init?(map: Map) {
     }
@@ -122,7 +130,7 @@ struct Carrier: Mappable {
     mutating func mapping(map: Map) {
         carrierId <- map["Id"]
         name <- map["Name"]
-        imageUrlString <- map["ImageUrl"]
+        code <- map["Code"]
     }
 }
 

@@ -21,6 +21,7 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         layout.minimumLineSpacing = 10
         layout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         collectionView?.setCollectionViewLayout(layout, animated: false)
+        collectionView?.alwaysBounceVertical = true
 
         collectionView?.alpha = 0
         statusLabel?.text = "Initializing search session"
