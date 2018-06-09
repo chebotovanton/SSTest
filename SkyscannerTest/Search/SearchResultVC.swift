@@ -45,12 +45,12 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
                        options: .beginFromCurrentState,
                        animations: { [weak self] in
                         self?.statusLabel?.alpha = 0
-        }) { [weak self] (finished) in
-            self?.statusLabel?.text = newText
-            UIView.animate(withDuration: duration,
-                           animations: { [weak self] in self?.statusLabel?.alpha = 1 },
-                           completion: nil)
-        }
+        }, completion: { [weak self] (_) in
+                self?.statusLabel?.text = newText
+                UIView.animate(withDuration: duration,
+                               animations: { [weak self] in self?.statusLabel?.alpha = 1 },
+                               completion: nil)
+        })
     }
 
     // MARK: - UICollectionViewDataSource
@@ -94,15 +94,15 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
                 self?.collectionView?.alpha = 1
                 self?.activityIndicator?.alpha = 0
                 self?.statusLabel?.alpha = 0
-            }) { [weak self] (finished) in
+            }, completion: { [weak self] (_) in
                 self?.activityIndicator?.stopAnimating()
-            }
+            })
         }
         collectionView?.reloadData()
     }
 
     func didReceiveNextPage(_ newItiniraries: [Itinerary]) {
-        itineraries = itineraries + newItiniraries
+        itineraries += newItiniraries
         collectionView?.reloadData()
     }
 

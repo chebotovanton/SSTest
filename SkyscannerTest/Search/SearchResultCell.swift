@@ -83,7 +83,7 @@ class SearchResultCell: UICollectionViewCell {
     private func setLogo(imageView: UIImageView?, leg: Leg?) {
         if let code = leg?.segments.first?.carrier?.code {
             let urlString = String(format: "https://logos.skyscnr.com/images/airlines/favicon/%@.png", code)
-            imageView?.sd_setImage(with: URL(string:  urlString), completed: nil)
+            imageView?.sd_setImage(with: URL(string: urlString), completed: nil)
         }
     }
 

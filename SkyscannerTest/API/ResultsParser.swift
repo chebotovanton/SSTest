@@ -135,7 +135,7 @@ struct Carrier: Mappable {
 }
 
 class ResultsParser {
-    static func parseResults(_ pollResponse: PollResponse) -> (results: Array<Itinerary>, shouldContinueSearch: Bool) {
+    static func parseResults(_ pollResponse: PollResponse) -> (results: [Itinerary], shouldContinueSearch: Bool) {
         //fill itineraries with all other data
         //tests?
         // complexity? O(n)?
@@ -161,7 +161,7 @@ class ResultsParser {
         })
 
         let shouldContinueSearch = (pollResponse.status != "UpdatesComplete")
-        
+
         return(pollResponse.itineraries ?? [], shouldContinueSearch)
     }
 }

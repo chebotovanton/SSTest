@@ -40,16 +40,16 @@ class SearchPerformer {
     private func handleSessionCreationResponse(_ response: DataResponse<Any>) {
         if let pollingLocation = response.response?.allHeaderFields["Location"] as? String {
             self.pollingLocation = pollingLocation
-            let parameters: [String : Any] = ["apiKey" : kApiKey,
-                                              "pageIndex" : 0,
-                                              "pageSize" : kPageSize]
+            let parameters: [String: Any] = ["apiKey" : kApiKey,
+                                             "pageIndex" : 0,
+                                             "pageSize" : kPageSize]
             pollResults(parameters: parameters)
         }
     }
 
-    private func pollResults(parameters: Dictionary<String, Any>) {
+    private func pollResults(parameters: [String: Any]) {
         guard let pollingLocation = pollingLocation else { return }
-        Alamofire.request(pollingLocation, parameters:parameters).responseObject() { [weak self] (response: DataResponse<PollResponse>) in
+        Alamofire.request(pollingLocation, parameters:parameters).responseObject { [weak self] (response: DataResponse<PollResponse>) in
             guard let pollResponse = response.result.value else {
                 self?.handleLoadingError(statusCode: response.response?.statusCode)
                 return
@@ -75,11 +75,11 @@ class SearchPerformer {
     func pollNextPage() {
         //code duplication?
         guard state == .finished, let pollingLocation = pollingLocation else { return }
-        let parameters: [String : Any] = ["apiKey" : kApiKey,
-                      "pageIndex" : lastPageIndex,
-                      "pageSize" : kPageSize]
+        let parameters: [String: Any] = ["apiKey" : kApiKey,
+                                         "pageIndex" : lastPageIndex,
+                                         "pageSize" : kPageSize]
         state = .loading
-        Alamofire.request(pollingLocation, parameters:parameters).responseObject() { [weak self] (response: DataResponse<PollResponse>) in
+        Alamofire.request(pollingLocation, parameters:parameters).responseObject { [weak self] (response: DataResponse<PollResponse>) in
             guard let pollResponse = response.result.value else {
                 self?.handleLoadingError(statusCode: response.response?.statusCode)
                 return
@@ -125,7 +125,7 @@ class SearchPerformer {
     }
 
     //move to tested params converter
-    private func parametersDict(from searchInfo: SearchInfo) -> [String : String] {
+    private func parametersDict(from searchInfo: SearchInfo) -> [String: String] {
         return ["cabinclass" : "Economy",
                       "country" : "UK",
                       "currency" : "GBP",

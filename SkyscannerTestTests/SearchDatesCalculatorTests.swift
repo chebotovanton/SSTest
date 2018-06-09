@@ -34,5 +34,5 @@ class SearchDatesCalculatorTests: XCTestCase {
         let result = SearchDatesCalculator.nextMondayString(from: date)
         XCTAssertEqual(result, "2019-01-07", "Wrong dates calculation")
     }
-        
+
 }
