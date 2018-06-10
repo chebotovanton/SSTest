@@ -79,7 +79,6 @@ class SearchPerformer {
     }
 
     func pollNextPage() {
-        //code duplication?
         guard state == .finished, let pollingLocation = pollingLocation else { return }
         let parameters: [String: Any] = ["apiKey" : kApiKey,
                                          "pageIndex" : lastPageIndex,
@@ -87,7 +86,7 @@ class SearchPerformer {
         state = .loading
         Alamofire.request(pollingLocation, parameters:parameters).responseObject { [weak self] (response: DataResponse<PollResponse>) in
             guard let pollResponse = response.result.value else {
-                self?.handleLoadingError(statusCode: response.response?.statusCode)
+                self?.handleNextPageLoadingError()
                 return
             }
 
@@ -113,9 +112,6 @@ class SearchPerformer {
 
     private func handleLoadingError(statusCode: Int?) {
         if let httpCode = statusCode, httpCode == 304 {
-//            removeStatusBarActivityIndicator()
-//            state = .finished
-            // repeat the last request, not the first page polling
             let parameters: [String: Any] = ["apiKey" : kApiKey,
                                              "pageIndex" : 0,
                                              "pageSize" : kPageSize]
@@ -125,6 +121,12 @@ class SearchPerformer {
             removeStatusBarActivityIndicator()
             delegate?.didFail(with: nil)
         }
+    }
+
+    private func handleNextPageLoadingError() {
+        state = .finished
+        removeStatusBarActivityIndicator()
+        delegate?.didFail(with: nil)
     }
 
     // move somewhere
