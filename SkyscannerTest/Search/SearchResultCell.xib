@@ -55,7 +55,7 @@
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="KLj-oL-m32" firstAttribute="top" secondItem="Cic-9p-vFC" secondAttribute="bottom" constant="4" id="BMc-lG-R2x"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="bottom" secondItem="Cic-9p-vFC" secondAttribute="bottom" constant="34" id="DV3-4I-KCx"/>
                 <constraint firstItem="KLj-oL-m32" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" constant="16" id="HAQ-Kd-BYb"/>
                 <constraint firstItem="ZTg-uK-7eu" firstAttribute="bottom" secondItem="hN6-Kg-KO6" secondAttribute="bottom" constant="15" id="MCd-k7-No4"/>
                 <constraint firstItem="ZTg-uK-7eu" firstAttribute="bottom" secondItem="aRk-8J-CfH" secondAttribute="bottom" constant="30" id="OjL-h5-tuS"/>
