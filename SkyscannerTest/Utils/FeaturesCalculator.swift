@@ -22,6 +22,6 @@ class FeaturesCalculator {
         }
 
         bestPriceIt?.features.append("Cheapest")
-        fastestItieraries.forEach { $0.features.append("Fastest") }
+        fastestItieraries.forEach { $0.features.append("Shortest") }
     }
 }

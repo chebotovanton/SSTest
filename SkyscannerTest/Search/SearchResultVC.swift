@@ -2,6 +2,12 @@ import UIKit
 
 class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, SearchPerformerDelegate {
 
+    private enum StatusText: String {
+        case initializing = "Initializing search session"
+        case polling = "Fetching results"
+        case failure = "Oops, something went wrong"
+    }
+
     private let kCellIdentifier = "SearchResultCell"
     @IBOutlet private weak var collectionView: UICollectionView?
     @IBOutlet private weak var statusLabel: UILabel?
@@ -27,7 +33,7 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         collectionView?.alwaysBounceVertical = true
 
         collectionView?.alpha = 0
-        statusLabel?.text = "Initializing search session"
+        statusLabel?.text = StatusText.initializing.rawValue
 
         navBarView?.layer.shadowOffset = CGSize(width: 0, height: 3)
         navBarView?.layer.shadowRadius = 8
@@ -127,7 +133,7 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     // MARK: - SearchPerformerDelegate
 
     func didStartSearch() {
-        switchStatusText(newText: "Fetching results")
+        switchStatusText(newText: StatusText.polling.rawValue)
     }
 
     func didReceiveFirstPage(_ itiniraries: [Itinerary]) {
@@ -153,6 +159,6 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
 
     func didFail(with error: Error?) {
-        switchStatusText(newText: "Oops, something went wrong")
+        switchStatusText(newText: StatusText.failure.rawValue)
     }
 }
