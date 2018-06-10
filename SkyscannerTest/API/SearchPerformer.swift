@@ -24,7 +24,7 @@ class SearchPerformer {
     private let kApiKey = ApiKeyStorage.loadApiKey()
 
     private var pollingLocation: String?
-    private let kPageSize = 10
+    private let kPageSize = 20
     private var lastPageIndex = 0
 
     private (set) var state: SearchPerformerState = .unknown
@@ -32,7 +32,7 @@ class SearchPerformer {
     func startSearch(_ searchInfo: SearchInfo) {
         self.searchInfo = searchInfo
         addStatusBarActivityIndicator()
-        let parameters = parametersDict(from: searchInfo)
+        let parameters = ParametersConverter.searchSessionInitParameters(searchInfo: searchInfo, apiKey: kApiKey)
         Alamofire.request(kBaseUrl + kCreateSessionUrl, method: .post, parameters: parameters).responseJSON { [weak self] (response) in
             self?.delegate?.didStartSearch()
             self?.handleSessionCreationResponse(response)
@@ -43,21 +43,19 @@ class SearchPerformer {
     private func handleSessionCreationResponse(_ response: DataResponse<Any>) {
         if let pollingLocation = response.response?.allHeaderFields["Location"] as? String {
             self.pollingLocation = pollingLocation
-            let parameters: [String: Any] = ["apiKey" : kApiKey,
-                                             "pageIndex" : 0,
-                                             "pageSize" : kPageSize]
+            let parameters = ParametersConverter.pollParameters(apiKey: kApiKey, pageIndex: 0, pageSize: kPageSize)
             pollResults(parameters: parameters)
         }
     }
 
     private func pollResults(parameters: [String: Any]) {
         guard let pollingLocation = pollingLocation else {
-            handleLoadingError(statusCode: nil)
+            handleErrorWithoutRetry()
             return
         }
         Alamofire.request(pollingLocation, parameters:parameters).responseObject { [weak self] (response: DataResponse<PollResponse>) in
             guard let pollResponse = response.result.value else {
-                self?.handleLoadingError(statusCode: response.response?.statusCode)
+                self?.handleLoadingError(statusCode: response.response?.statusCode, pollParameters: parameters)
                 return
             }
 
@@ -80,13 +78,11 @@ class SearchPerformer {
 
     func pollNextPage() {
         guard state == .finished, let pollingLocation = pollingLocation else { return }
-        let parameters: [String: Any] = ["apiKey" : kApiKey,
-                                         "pageIndex" : lastPageIndex,
-                                         "pageSize" : kPageSize]
+        let parameters = ParametersConverter.pollParameters(apiKey: kApiKey, pageIndex: 0, pageSize: kPageSize)
         state = .loading
         Alamofire.request(pollingLocation, parameters:parameters).responseObject { [weak self] (response: DataResponse<PollResponse>) in
             guard let pollResponse = response.result.value else {
-                self?.handleNextPageLoadingError()
+                self?.handleErrorWithoutRetry()
                 return
             }
 
@@ -110,12 +106,9 @@ class SearchPerformer {
         }
     }
 
-    private func handleLoadingError(statusCode: Int?) {
+    private func handleLoadingError(statusCode: Int?, pollParameters: [String: Any]) {
         if let httpCode = statusCode, httpCode == 304 {
-            let parameters: [String: Any] = ["apiKey" : kApiKey,
-                                             "pageIndex" : 0,
-                                             "pageSize" : kPageSize]
-            pollResults(parameters: parameters)
+            pollResults(parameters: pollParameters)
         } else {
             state = .error
             removeStatusBarActivityIndicator()
@@ -123,7 +116,7 @@ class SearchPerformer {
         }
     }
 
-    private func handleNextPageLoadingError() {
+    private func handleErrorWithoutRetry() {
         state = .finished
         removeStatusBarActivityIndicator()
         delegate?.didFail(with: nil)
@@ -138,20 +131,4 @@ class SearchPerformer {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
 
-    //move to tested params converter
-    private func parametersDict(from searchInfo: SearchInfo) -> [String: String] {
-        return ["cabinclass" : "Economy",
-                      "country" : "UK",
-                      "currency" : "GBP",
-                      "locale" : "en-GB",
-                      "locationSchema" : searchInfo.locationSchema,
-                      "originplace" : searchInfo.originIata,
-                      "destinationplace" : searchInfo.destinationIata,
-                      "outbounddate" : searchInfo.outboundDate,
-                      "inbounddate" : searchInfo.inboundDate,
-                      "adults" : "1",
-                      "children" : "0",
-                      "infants" : "0",
-                      "apiKey" : kApiKey]
-    }
 }

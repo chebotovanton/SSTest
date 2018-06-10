@@ -11,6 +11,7 @@
 		9F2DF35F20CC7145003B5574 /* DatesStringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2DF35E20CC7145003B5574 /* DatesStringFormatter.swift */; };
 		9F2DF36120CD14B7003B5574 /* FeaturesCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2DF36020CD14B7003B5574 /* FeaturesCalculator.swift */; };
 		9F2DF36320CD545A003B5574 /* ApiKeyStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2DF36220CD545A003B5574 /* ApiKeyStorage.swift */; };
+		9F2DF36520CD603B003B5574 /* ParametersConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2DF36420CD603B003B5574 /* ParametersConverter.swift */; };
 		9F38E0CD20C7F1DB00DBB174 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F38E0CC20C7F1DB00DBB174 /* AppDelegate.swift */; };
 		9F38E0D420C7F1DB00DBB174 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F38E0D220C7F1DB00DBB174 /* Main.storyboard */; };
 		9F38E0D620C7F1DD00DBB174 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F38E0D520C7F1DD00DBB174 /* Assets.xcassets */; };
@@ -46,6 +47,7 @@
 		9F2DF35E20CC7145003B5574 /* DatesStringFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatesStringFormatter.swift; sourceTree = "<group>"; };
 		9F2DF36020CD14B7003B5574 /* FeaturesCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturesCalculator.swift; sourceTree = "<group>"; };
 		9F2DF36220CD545A003B5574 /* ApiKeyStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeyStorage.swift; sourceTree = "<group>"; };
+		9F2DF36420CD603B003B5574 /* ParametersConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametersConverter.swift; sourceTree = "<group>"; };
 		9F38E0C920C7F1DB00DBB174 /* SkyscannerTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkyscannerTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F38E0CC20C7F1DB00DBB174 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9F38E0D320C7F1DB00DBB174 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				9FB1D03620CC0B9500C6E72B /* SearchPerformer.swift */,
 				9FB1D03720CC0B9500C6E72B /* ResultsParser.swift */,
 				9F2DF36220CD545A003B5574 /* ApiKeyStorage.swift */,
+				9F2DF36420CD603B003B5574 /* ParametersConverter.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -365,6 +368,7 @@
 				9F2DF35F20CC7145003B5574 /* DatesStringFormatter.swift in Sources */,
 				9F38E10720C86E5800DBB174 /* STTabBarController.swift in Sources */,
 				9FB1D03A20CC0B9500C6E72B /* ResultsParser.swift in Sources */,
+				9F2DF36520CD603B003B5574 /* ParametersConverter.swift in Sources */,
 				9F38E0CD20C7F1DB00DBB174 /* AppDelegate.swift in Sources */,
 				9FB1D03D20CC13DF00C6E72B /* LegInfoView.swift in Sources */,
 				9F38E10020C8375A00DBB174 /* MainSearchVC.swift in Sources */,
