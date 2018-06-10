@@ -10,6 +10,7 @@
 		249C5D71885E0B89B371A025 /* Pods_SkyscannerTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2936B381DCD59561CB1BBF6C /* Pods_SkyscannerTest.framework */; };
 		9F2DF35F20CC7145003B5574 /* DatesStringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2DF35E20CC7145003B5574 /* DatesStringFormatter.swift */; };
 		9F2DF36120CD14B7003B5574 /* FeaturesCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2DF36020CD14B7003B5574 /* FeaturesCalculator.swift */; };
+		9F2DF36320CD545A003B5574 /* ApiKeyStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2DF36220CD545A003B5574 /* ApiKeyStorage.swift */; };
 		9F38E0CD20C7F1DB00DBB174 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F38E0CC20C7F1DB00DBB174 /* AppDelegate.swift */; };
 		9F38E0D420C7F1DB00DBB174 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F38E0D220C7F1DB00DBB174 /* Main.storyboard */; };
 		9F38E0D620C7F1DD00DBB174 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F38E0D520C7F1DD00DBB174 /* Assets.xcassets */; };
@@ -44,6 +45,7 @@
 		9823585302FAE2DBD7824E07 /* Pods-SkyscannerTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkyscannerTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SkyscannerTest/Pods-SkyscannerTest.debug.xcconfig"; sourceTree = "<group>"; };
 		9F2DF35E20CC7145003B5574 /* DatesStringFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatesStringFormatter.swift; sourceTree = "<group>"; };
 		9F2DF36020CD14B7003B5574 /* FeaturesCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturesCalculator.swift; sourceTree = "<group>"; };
+		9F2DF36220CD545A003B5574 /* ApiKeyStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeyStorage.swift; sourceTree = "<group>"; };
 		9F38E0C920C7F1DB00DBB174 /* SkyscannerTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkyscannerTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F38E0CC20C7F1DB00DBB174 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9F38E0D320C7F1DB00DBB174 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				9FB1D03520CC0B9500C6E72B /* SearchDatesCalculator.swift */,
 				9FB1D03620CC0B9500C6E72B /* SearchPerformer.swift */,
 				9FB1D03720CC0B9500C6E72B /* ResultsParser.swift */,
+				9F2DF36220CD545A003B5574 /* ApiKeyStorage.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F2DF36120CD14B7003B5574 /* FeaturesCalculator.swift in Sources */,
+				9F2DF36320CD545A003B5574 /* ApiKeyStorage.swift in Sources */,
 				9FB1D04020CC30C800C6E72B /* PriceFormatter.swift in Sources */,
 				9F38E0FA20C80E5D00DBB174 /* SearchResultVC.swift in Sources */,
 				9FB1D03920CC0B9500C6E72B /* SearchPerformer.swift in Sources */,

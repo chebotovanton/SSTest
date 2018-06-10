@@ -21,7 +21,7 @@ class SearchPerformer {
 
     private let kBaseUrl = "http://partners.api.skyscanner.net/apiservices/"
     private let kCreateSessionUrl = "pricing/v1.0"
-    private let kApiKey = "ss630745725358065467897349852985"
+    private let kApiKey = ApiKeyStorage.loadApiKey()
 
     private var pollingLocation: String?
     private let kPageSize = 10
