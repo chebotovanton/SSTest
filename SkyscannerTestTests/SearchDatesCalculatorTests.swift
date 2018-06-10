@@ -6,12 +6,19 @@ class SearchDatesCalculatorTests: XCTestCase {
     var dateFormatter: DateFormatter {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")!
 
         return dateFormatter
     }
 
     func testSimpleWeekSwitch() {
         let date = dateFormatter.date(from: "2018-06-06")!
+        let result = SearchDatesCalculator.nextMondayString(from: date)
+        XCTAssertEqual(result, "2018-06-11", "SearchDatesCalculator fails next monday detection")
+    }
+
+    func testSimpleWeekSwitch2() {
+        let date = dateFormatter.date(from: "2018-06-10")!
         let result = SearchDatesCalculator.nextMondayString(from: date)
         XCTAssertEqual(result, "2018-06-11", "SearchDatesCalculator fails next monday detection")
     }

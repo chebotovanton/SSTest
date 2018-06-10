@@ -37,7 +37,10 @@ class SearchDatesCalculator {
     private static func getNextMonday(from date: Date) -> Date {
         let targetWeekday = (calendar.firstWeekday == 1) ? 2 : 1
         let dateWeekday = calendar.component(.weekday, from: date)
-        let daysToAdd = targetWeekday + 7 - dateWeekday
+        var daysToAdd = targetWeekday + 7 - dateWeekday
+        if daysToAdd > 7 {
+            daysToAdd = daysToAdd % 7
+        }
 
         return calendar.date(byAdding: .day, value: daysToAdd, to: date)!
     }
