@@ -39,6 +39,7 @@ class SearchResultCell: UICollectionViewCell {
     func setup(_ itinerary: Itinerary) {
         priceLabel?.text = PriceFormatter.priceString(itinerary: itinerary)
         carriersLabel?.text = carriersString(itinerary)
+        setupFeaturesLabel(itinerary.features)
 
         outboundLegInfoView.setup(leg: itinerary.outboundLeg)
         inboundLegInfoView.setup(leg: itinerary.inboundLeg)
@@ -53,6 +54,10 @@ class SearchResultCell: UICollectionViewCell {
         } else {
             return "\(allNames.count) bookings required"
         }
+    }
 
+    private func setupFeaturesLabel(_ features: [String]?) {
+        featuresDescription?.isHidden = (features?.count == 0)
+        featuresDescription?.text = features?.joined(separator: " ")
     }
 }

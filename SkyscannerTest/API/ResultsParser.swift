@@ -3,26 +3,26 @@ import UIKit
 import AlamofireObjectMapper
 import ObjectMapper
 
-struct PollResponse: Mappable {
-    var sessionKey: String?
-    var status: String?
-    var itineraries: [Itinerary]?
-    var legs: [Leg]?
-    var places: [Place]?
-    var segments: [Segment]?
-    var carriers: [Carrier]?
+struct PollResponse: ImmutableMappable {
+    var sessionKey: String
+    var status: String
+    var itineraries: [Itinerary]
+    var legs: [Leg]
+    var places: [Place]
+    var segments: [Segment]
+    var carriers: [Carrier]
 
-    init?(map: Map) {
+    init(map: Map) throws {
+        sessionKey = try map.value("SessionKey")
+        status = try map.value("Status")
+        itineraries = try map.value("Itineraries")
+        legs = try map.value("Legs")
+        places = try map.value("Places")
+        segments = try map.value("Segments")
+        carriers = try map.value("Carriers")
     }
 
     mutating func mapping(map: Map) {
-        sessionKey <- map["SessionKey"]
-        status <- map["Status"]
-        itineraries <- map["Itineraries"]
-        legs <- map["Legs"]
-        places <- map["Places"]
-        segments <- map["Segments"]
-        carriers <- map["Carriers"]
     }
 }
 
@@ -32,6 +32,7 @@ class Itinerary: Mappable {
     var outboundLegId: String?
     var inboundLegId: String?
     var pricingOptions: [PricingOption]?
+    var features: [String] = []
 
     required init?(map: Map) {
     }
@@ -43,6 +44,18 @@ class Itinerary: Mappable {
         outboundLegId <- map["OutboundLegId"]
         inboundLegId <- map["InboundLegId"]
         pricingOptions <- map["PricingOptions"]
+    }
+
+    func calculateMinPrice() -> Double? {
+        return pricingOptions?.min(by: { $0.price < $1.price })?.price
+    }
+
+    func totalDuration() -> Int? {
+        if let outDuration = outboundLeg?.duration, let inDuration = inboundLeg?.duration {
+            return outDuration + inDuration
+        }
+
+        return nil
     }
 }
 
@@ -144,32 +157,31 @@ struct Carrier: Mappable {
 
 class ResultsParser {
     static func parseResults(_ pollResponse: PollResponse) -> (results: [Itinerary], shouldContinueSearch: Bool) {
-        //fill itineraries with all other data
         //tests?
         // complexity? O(n)?
 
-        pollResponse.segments?.forEach({ (segment) in
-            segment.carrier = pollResponse.carriers?.first { $0.carrierId == segment.carrierId }
+        pollResponse.segments.forEach({ (segment) in
+            segment.carrier = pollResponse.carriers.first { $0.carrierId == segment.carrierId }
         })
 
-        pollResponse.legs?.forEach({ (leg) in
-            leg.originStation = pollResponse.places?.first { $0.placeId == leg.originStationId }
-            leg.destinationStation = pollResponse.places?.first { $0.placeId == leg.destinationStationId }
+        pollResponse.legs.forEach({ (leg) in
+            leg.originStation = pollResponse.places.first { $0.placeId == leg.originStationId }
+            leg.destinationStation = pollResponse.places.first { $0.placeId == leg.destinationStationId }
 
             leg.segmentIds?.forEach({ (segmentId) in
-                if let segment = pollResponse.segments?.first(where: { $0.segmentId! == segmentId }) {
+                if let segment = pollResponse.segments.first(where: { $0.segmentId! == segmentId }) {
                     leg.segments.append(segment)
                 }
             })
         })
 
-        pollResponse.itineraries?.forEach({ (itinerary) in
-            itinerary.inboundLeg = pollResponse.legs?.first { $0.legId == itinerary.inboundLegId }
-            itinerary.outboundLeg = pollResponse.legs?.first { $0.legId == itinerary.outboundLegId }
+        pollResponse.itineraries.forEach({ (itinerary) in
+            itinerary.inboundLeg = pollResponse.legs.first { $0.legId == itinerary.inboundLegId }
+            itinerary.outboundLeg = pollResponse.legs.first { $0.legId == itinerary.outboundLegId }
         })
 
         let shouldContinueSearch = (pollResponse.status != "UpdatesComplete")
 
-        return(pollResponse.itineraries ?? [], shouldContinueSearch)
+        return(pollResponse.itineraries, shouldContinueSearch)
     }
 }

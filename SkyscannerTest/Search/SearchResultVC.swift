@@ -73,6 +73,20 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         })
     }
 
+    private func showCollectionView() {
+        if itineraries.count > 0 {
+            UIView.animate(withDuration: 0.5, animations: { [weak self] in
+                self?.collectionView?.alpha = 1
+                self?.activityIndicator?.alpha = 0
+                self?.statusLabel?.alpha = 0
+                }, completion: { [weak self] (_) in
+                    self?.activityIndicator?.stopAnimating()
+            })
+        }
+        collectionView?.reloadData()
+        updateResultsCountLabel()
+    }
+
     private func updateResultsCountLabel() {
         let count = itineraries.count
         resultsCountLabel?.text = "\(count) of \(count) results shown"
@@ -117,24 +131,25 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
 
     func didReceiveFirstPage(_ itiniraries: [Itinerary]) {
-        itineraries = itiniraries
-        if itineraries.count > 0 {
-            UIView.animate(withDuration: 0.5, animations: { [weak self] in
-                self?.collectionView?.alpha = 1
-                self?.activityIndicator?.alpha = 0
-                self?.statusLabel?.alpha = 0
-            }, completion: { [weak self] (_) in
-                self?.activityIndicator?.stopAnimating()
-            })
+        DispatchQueue.global(qos: .background).sync {
+            itineraries = itiniraries
+            FeaturesCalculator.distributeFeatures(itineraries: self.itineraries)
+            DispatchQueue.main.async { [weak self] in
+                self?.showCollectionView()
+            }
         }
-        collectionView?.reloadData()
-        updateResultsCountLabel()
     }
 
     func didReceiveNextPage(_ newItiniraries: [Itinerary]) {
-        itineraries += newItiniraries
-        collectionView?.reloadData()
-        updateResultsCountLabel()
+        DispatchQueue.global(qos: .background).sync {
+            itineraries += newItiniraries
+            FeaturesCalculator.distributeFeatures(itineraries: self.itineraries)
+            DispatchQueue.main.async { [weak self] in
+                guard let `self` = self else { return }
+                self.collectionView?.reloadData()
+                self.updateResultsCountLabel()
+            }
+        }
     }
 
     func didFail(with error: Error?) {
