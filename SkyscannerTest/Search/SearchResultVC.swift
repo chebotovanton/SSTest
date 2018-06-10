@@ -38,6 +38,7 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         if let searchInfo = searchPerformer?.searchInfo {
             datesLabel?.text = DatesStringFormatter.datesDescription(searchInfo: searchInfo)
         }
+        updateResultsCountLabel()
     }
 
     override var prefersStatusBarHidden: Bool {
