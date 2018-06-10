@@ -40,6 +40,10 @@ class SearchResultVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
 
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+
     deinit {
         self.searchPerformer?.stopLoading()
     }
